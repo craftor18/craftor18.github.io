@@ -1,0 +1,6 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://craftor18.github.io/sitemap.xml
+Sitemap: https://craftor18.github.io/baidusitemap.xml
