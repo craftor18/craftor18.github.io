@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>黑水虻ModSP基因鉴定及进化分析</title>
+      <link href="/archives/undefined.html"/>
+      <url>/archives/undefined.html</url>
+      
+        <content type="html"><![CDATA[<h1>黑水虻ModSP基因鉴定及进化分析</h1><p>毕业论文流程记录，仅供自己复习用。</p><h2 id="操作流程">操作流程</h2><h3 id="1-数据获得">1.数据获得</h3><p>从昆虫数据库InsectBase(<a href="http://v2.insect-genome.com/">http://v2.insect-genome.com/</a>)获取黑水虻的基因组序列、蛋白质序列和基因组注释gff3文件，和黑腹果蝇、冈比亚按蚊的基因组序列、基因组注释gff3文件，以及西花蓟马、烟草天蛾、猫蚤和稻褐飞虱的ModSP基因所编码的蛋白序列。</p><h3 id="2-黑水虻中ModSP基因的鉴定">2.黑水虻中ModSP基因的鉴定</h3><p>以果蝇的ModSP蛋白序列为query序列，利用TBtools工具在黑水虻的蛋白序列所建立的库中进行blastp比对，设置E-Value=1e-10，其余参数默认，筛选同源性比较高的序列。筛选出的蛋白序列的id号再与昆虫数据库InsectBase中黑水虻已经登录的ModSP基因的登录号进行确认，是否为黑水虻ModSP基因，剔除掉不符合条件的序列，最终得到黑水虻ModSP基因全部符合条件的蛋白序列。登陆NCBI网站CDD工具，提交蛋白序列进行结构域的确认，下载确认结果提交至TBtools程序进行可视化展示。</p><h3 id="3-黑水虻ModSP基因编码蛋白的理化性质和亚细胞定位分析">3.黑水虻ModSP基因编码蛋白的理化性质和亚细胞定位分析</h3><p>对筛选出来的ModSP蛋白序列使用ProtParam(<a href="https://web.expasy.org/protparam/">https://web.expasy.org/protparam/</a>)进行蛋白质的理化性质的预测，利用在线网站WoLF PSORT(<a href="https://wolfpsort.hgc.jp/">https://wolfpsort.hgc.jp/</a>)对蛋白序列进行亚细胞定位分析。最终得对到的蛋白质理化性质分析结果与亚细胞定位分析结果进行整理。</p><h3 id="4-多序列比对与物种间ModSP基因进化树的构建">4.多序列比对与物种间ModSP基因进化树的构建</h3><p>用得到的黑水虻ModSP蛋白序列与从昆虫数据库下载的黑腹果蝇、冈比亚按蚊(Anopheles gambiae)西花蓟马(frankliniella occidentalis)、烟草天蛾(Manduca sexta)、猫蚤(Ctenocephalides felis)、稻褐飞虱(Nilaparvata lugens)的蛋白序列在在线网站Clustal Omega(<a href="https://www.ebi.ac.uk/Tools/msa/clustalo/">https://www.ebi.ac.uk/Tools/msa/clustalo/</a>)进行多序列比对，其比对结果使用Jalview软件进行查看，对比对结果采用MEGA 11软件使用邻接法(NJ)参数Bootstrap设置为1000，其余参数默认进行建树，得到的多物种进化树用在线网站iTol(<a href="https://itol.embl.de/">https://itol.embl.de/</a>)进行美化，采用环形进化树进行展示，MEGA软件得到的矩形进化树进行系统进化分析。</p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001705423.png" alt="image-20220508001705423"></p><h3 id="5-黑水虻ModSP基因保守基序和基因结构">5.黑水虻ModSP基因保守基序和基因结构</h3><p>将blastp鉴定得到的黑水虻ModSP蛋白序列，利用在线网站工具MEME Suite(<a href="https://meme-suite.org/meme/tools/meme">https://meme-suite.org/meme/tools/meme</a>)鉴定保守基序，基序数量参数设定为5，其余参数均保持默认，得到的结果用TBtools进行可视化展示。将从InsectBase数据库下载的黑水虻基因组注释gff3文件和所有鉴定出的黑水虻ModSP基因的ID文件提交至TBtools程序，得到黑水虻ModSP基因的基因结构图并保存。将黑水虻基因组注释gff3文件、黑水虻ModSP基因ID文件上传至TBtools程序上，其余配置文件保持默认，得到黑水虻ModSP基因在染色体上的定位图。</p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001717579.png" alt="image-20220508001717579"></p><h3 id="6-黑水虻ModSP基因的顺式作用元件分析">6.黑水虻ModSP基因的顺式作用元件分析</h3><p>利用TBtools程序的工具进行黑水虻所有基因的启动子区域序列的提取，然后在此基础上进行黑水虻ModSP基因的启动子区域序列的提取，得到目标序列后提交至在线网站PlantCare(<a href="https://bioinformatics.psb.ugent.be/webtools/plantcare/html/">https://bioinformatics.psb.ugent.be/webtools/plantcare/html/</a>)进行顺式作用元件的预测，通过邮箱得到结果的压缩包后，将结果文件解压，使用Excel软件对其中的tab文件进行筛选，筛选结果再提交至TBtools程序进行可视化展示。</p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001725581.png" alt="image-20220508001725581"></p><h3 id="7-选择压力分析和共线性分析">7.选择压力分析和共线性分析</h3><p>利用TBtools内置的Ka/Ks Calculaor对黑水虻ModSP cds和pep序列进行Ka/Ks的计算，得到的结果进行整理，得出各个序列之间的Ka/Ks值。使用TBtools自带的McScan X软件对黑水虻、果蝇、冈比亚按蚊的基因组进行物种间共线性分析，分析结果也采用TBtools程序进行编辑和展示，以此结果来鉴定黑水虻ModSP基因的保守性。</p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001742921.png" alt="image-20220508001742921"></p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001802364.png" alt="image-20220508001802364"></p><p><img src="https://cdn.jsdelivr.net/gh/craftor18/mypicgo/img/image-20220508001808550.png" alt="image-20220508001808550"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 毕业论文 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>出师表</title>
       <link href="/archives/cd603c7d.html"/>
       <url>/archives/cd603c7d.html</url>
