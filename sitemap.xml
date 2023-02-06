@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://craftor18.github.io/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/post/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/post/record_of_hugoconfig/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://craftor18.github.io/categories/</loc>
     <lastmod>2022-12-27T00:54:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -9,21 +30,7 @@
   </url>
   
   <url>
-    <loc>https://craftor18.github.io/</loc>
-    <lastmod>2022-12-27T00:54:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://craftor18.github.io/categories/hugo/</loc>
-    <lastmod>2022-12-27T00:54:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://craftor18.github.io/post/</loc>
     <lastmod>2022-12-27T00:54:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

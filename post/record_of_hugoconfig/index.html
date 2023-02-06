@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>小记hugo中的一些配置问题 - craftor18的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="codingxiaozeng" /><meta name="description" content="小记hugo中的一些配置问题 1.如何将首页的logo从Even改成自己的名字 在config.toml配置文件中找到logoTitle = &amp;qu" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.github.io/post/record_of_hugoconfig/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="小记hugo中的一些配置问题" />
+<meta property="og:description" content="小记hugo中的一些配置问题 1.如何将首页的logo从Even改成自己的名字 在config.toml配置文件中找到logoTitle = &qu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.github.io/post/record_of_hugoconfig/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-06T19:46:12+08:00" />
+<meta property="article:modified_time" content="2023-02-06T19:46:12+08:00" />
+<meta itemprop="name" content="小记hugo中的一些配置问题">
+<meta itemprop="description" content="小记hugo中的一些配置问题 1.如何将首页的logo从Even改成自己的名字 在config.toml配置文件中找到logoTitle = &qu"><meta itemprop="datePublished" content="2023-02-06T19:46:12+08:00" />
+<meta itemprop="dateModified" content="2023-02-06T19:46:12+08:00" />
+<meta itemprop="wordCount" content="808">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="小记hugo中的一些配置问题"/>
+<meta name="twitter:description" content="小记hugo中的一些配置问题 1.如何将首页的logo从Even改成自己的名字 在config.toml配置文件中找到logoTitle = &qu"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">小记hugo中的一些配置问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-06 </span>
+        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#小记hugo中的一些配置问题">小记hugo中的一些配置问题</a>
+      <ul>
+        <li><a href="#1如何将首页的logo从even改成自己的名字">1.如何将首页的logo从Even改成自己的名字</a></li>
+        <li><a href="#2添加utterances评论系统">2.添加<code>utterances</code>评论系统</a></li>
+        <li><a href="#3将原本花里胡哨各种social关掉并改一下footer">3.将原本花里胡哨各种social关掉并改一下footer</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="小记hugo中的一些配置问题">小记hugo中的一些配置问题</h1>
+<h2 id="1如何将首页的logo从even改成自己的名字">1.如何将首页的logo从Even改成自己的名字</h2>
+<p>在<code>config.toml</code>配置文件中找到<code>logoTitle = &quot;yourname&quot;</code>这一行，将其修改成你想要的名字。当时我还以为那个东西要改icon之类的，没想到哇就在配置文件里改，我真是个小可爱捏。</p>
+<h2 id="2添加utterances评论系统">2.添加<code>utterances</code>评论系统</h2>
+<p>先在github自己的仓库里面安装<code>utterances</code>应用，再在<code>config.toml</code>配置文件里找到<code>[params.utterances]</code>这几行，改成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">utterances</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">owner</span> <span class="p">=</span> <span class="s">&#34;yourid&#34;</span>        
+</span></span><span class="line"><span class="cl">    <span class="nx">repo</span> <span class="p">=</span> <span class="s">&#34;yourrepo&#34;</span>        
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改完push到github之后发现评论系统一点击要登陆到github就错误，结果发现是<code>config.toml</code>配置文件里<code>baseURL = &quot;&quot;</code>这里还是个本地url所以跳转会错误，改成自己的<code>github.io</code>那个就行了比如<code>baseURL = &quot;https://craftor18.github.io/&quot;</code>。</p>
+<h2 id="3将原本花里胡哨各种social关掉并改一下footer">3.将原本花里胡哨各种social关掉并改一下footer</h2>
+<p>原本不是下面一堆社交链接吗，如何改成下图这样捏？
+<img src="/img/footer.png" alt="footer">
+其实就是将<code>themes/even/layouts/partials/post/footer.html</code>文件中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- &lt;div class=&#34;social-links&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">  {{- range $name, $path := .Site.Params.social }}
+</span></span></span><span class="line"><span class="cl"><span class="c">    {{- if $path }}
+</span></span></span><span class="line"><span class="cl"><span class="c">      {{- $realName := slicestr $name 2 }}
+</span></span></span><span class="line"><span class="cl"><span class="c">      &lt;a href=&#34;{{ $path | safeURL }}&#34; class=&#34;iconfont icon-{{ $realName }}&#34; title=&#34;{{ $realName }}&#34;&gt;&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">    {{- end }}
+</span></span></span><span class="line"><span class="cl"><span class="c">  {{- end }}
+</span></span></span><span class="line"><span class="cl"><span class="c">  {{ if .Site.LanguagePrefix -}}
+</span></span></span><span class="line"><span class="cl"><span class="c">    &lt;a href=&#34;{{ .Site.LanguagePrefix | absURL }}/index.xml&#34; type=&#34;application/rss+xml&#34; class=&#34;iconfont icon-rss&#34; title=&#34;rss&#34;&gt;&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">  {{- else -}}
+</span></span></span><span class="line"><span class="cl"><span class="c">    &lt;a href=&#34;{{ .Site.RSSLink }}&#34; type=&#34;application/rss+xml&#34; class=&#34;iconfont icon-rss&#34; title=&#34;rss&#34;&gt;&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">  {{- end }}
+</span></span></span><span class="line"><span class="cl"><span class="c">&lt;/div&gt; --&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面这一堆代码块注释掉，就行了（虽然我已经注释了，嘿嘿），然后在最后一个<code>&lt;/div&gt;</code>的上一行添加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;copyright-and-others&#34;</span><span class="p">&gt;</span>Copyright <span class="ni">&amp;copy;</span> 2023 <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/craftor18&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color:#c05b4d&#34;</span><span class="p">&gt;</span>Craftor18<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>. All Rights Reserved
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ps：可以改一下年份和链接哟</p>
+<p>总之，以上是我在配置自己的even主题中遇到的一些问题，还有许多不足的辣，也参考了很多大佬的教程，附上链接：</p>
+<p><a href="https://www.leftpocket.cn/post/hugo/hugo_creation/">从零开始搭建个人博客网站系列 一、使用hugo创建个人站点 - 码农在新加坡的个人博客 (leftpocket.cn)</a></p>
+<p><a href="https://blog.dontjudge.cn/post/hugo-%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E5%9B%BE%E7%89%87%E6%8F%92%E5%85%A5/">Hugo 静态网站图片插入问题 - Don&rsquo;t Judge (dontjudge.cn)</a></p>
+<p><a href="https://blog.dontjudge.cn/post/hugo-+-github-pages-%E6%90%AD%E5%BB%BAblog/">Hugo + Github Pages 搭建Blog - Don&rsquo;t Judge (dontjudge.cn)</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">codingxiaozeng</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/my-first-post/">
+            <span class="next-text nav-default">我的第一篇博客</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="url"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客架构 
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+
+  <span class="copyright-and-others">Copyright &copy; 2023 <a href="https://github.com/craftor18" style="color:#c05b4d">Craftor18</a></span>. All Rights Reserved
+</div>
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
