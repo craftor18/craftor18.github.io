@@ -2,7 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://craftor18.github.io/categories/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://craftor18.github.io/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/tags/hugo/</loc>
     <lastmod>2023-02-06T19:46:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -16,6 +30,13 @@
   </url>
   
   <url>
+    <loc>https://craftor18.github.io/tags/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://craftor18.github.io/post/record_of_hugoconfig/</loc>
     <lastmod>2023-02-06T19:46:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,14 +44,21 @@
   </url>
   
   <url>
-    <loc>https://craftor18.github.io/categories/</loc>
+    <loc>https://craftor18.github.io/categories/%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2023-02-06T19:46:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/tags/%E7%BA%AA%E5%BF%B5/</loc>
     <lastmod>2022-12-27T00:54:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://craftor18.github.io/categories/hugo/</loc>
+    <loc>https://craftor18.github.io/categories/%E7%94%9F%E6%B4%BB/</loc>
     <lastmod>2022-12-27T00:54:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -39,12 +67,6 @@
   <url>
     <loc>https://craftor18.github.io/post/my-first-post/</loc>
     <lastmod>2022-12-27T00:54:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://craftor18.github.io/tags/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

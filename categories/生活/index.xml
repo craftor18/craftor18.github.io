@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>生活 on craftor18的个人博客</title>
+    <link>https://craftor18.github.io/categories/%E7%94%9F%E6%B4%BB/</link>
+    <description>Recent content in 生活 on craftor18的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 27 Dec 2022 00:54:21 +0800</lastBuildDate><atom:link href="https://craftor18.github.io/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的第一篇博客</title>
+      <link>https://craftor18.github.io/post/my-first-post/</link>
+      <pubDate>Tue, 27 Dec 2022 00:54:21 +0800</pubDate>
+      
+      <guid>https://craftor18.github.io/post/my-first-post/</guid>
+      <description>这是我的第一篇博客 非常开心，这是我的第一篇博客 测试了hugo博客，这一篇博客用来纪念一下哈哈哈哈，附上刻晴涩图 下面是自己的b站主页空间，哈哈</description>
+    </item>
+    
+  </channel>
+</rss>
