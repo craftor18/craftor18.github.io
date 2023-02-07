@@ -6,7 +6,16 @@
     <description>Recent content in hugo on craftor18的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 06 Feb 2023 19:46:12 +0800</lastBuildDate><atom:link href="https://craftor18.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 14:44:16 +0800</lastBuildDate><atom:link href="https://craftor18.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>浅浅记录一下hugo的简易部署流程（阿里域名版）</title>
+      <link>https://craftor18.github.io/post/hugo_pipeline/</link>
+      <pubDate>Tue, 07 Feb 2023 14:44:16 +0800</pubDate>
+      
+      <guid>https://craftor18.github.io/post/hugo_pipeline/</guid>
+      <description>折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点htm</description>
+    </item>
+    
     <item>
       <title>小记hugo中的一些配置问题</title>
       <link>https://craftor18.github.io/post/record_of_hugoconfig/</link>

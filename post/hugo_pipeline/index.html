@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>浅浅记录一下hugo的简易部署流程（阿里域名版） - craftor18的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点htm" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.github.io/post/hugo_pipeline/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="浅浅记录一下hugo的简易部署流程（阿里域名版）" />
+<meta property="og:description" content="折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点htm" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.github.io/post/hugo_pipeline/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-07T14:44:16+08:00" />
+<meta property="article:modified_time" content="2023-02-07T14:44:16+08:00" />
+<meta itemprop="name" content="浅浅记录一下hugo的简易部署流程（阿里域名版）">
+<meta itemprop="description" content="折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点htm"><meta itemprop="datePublished" content="2023-02-07T14:44:16+08:00" />
+<meta itemprop="dateModified" content="2023-02-07T14:44:16+08:00" />
+<meta itemprop="wordCount" content="1183">
+<meta itemprop="keywords" content="hugo," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="浅浅记录一下hugo的简易部署流程（阿里域名版）"/>
+<meta name="twitter:description" content="折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点htm"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">浅浅记录一下hugo的简易部署流程（阿里域名版）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-07 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 1183 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-安装git">1 安装git</a></li>
+        <li><a href="#2-安装hugo">2 安装hugo</a></li>
+        <li><a href="#3-使用hugo开始搭建自己的博客">3 使用hugo开始搭建自己的博客</a></li>
+        <li><a href="#4-将博客部署到github上并且利用vercel绑定域名托管">4 将博客部署到github上并且利用vercel绑定域名托管</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>折腾了许久，总算将一个勉强能看的hugo博客页面搞了出来，本意还是为了记录一下自己的学习笔记，其实我对于前端的知识不太熟，只了解一点点html和css的基础，JavaScript完全不懂。因为我是在Windows下搞的，因此流程大致如下。</p>
+<h2 id="1-安装git">1 安装git</h2>
+<p>到git的官网下载windows版本的git，跟着说明一步步安装就行了。</p>
+<p><a href="https://git-scm.com/download/win">Git - Downloading Package (git-scm.com)</a></p>
+<p>为了后面能在git上快速安装hugo，要先安装go依赖，去官网下载默认安装即可。</p>
+<p><a href="https://go.dev/doc/install">https://go.dev/doc/install</a></p>
+<p>go编译安装hugo的过程需要用到gcc，因此要去下载安装一个minGW。</p>
+<p><a href="https://sourceforge.net/projects/mingw-w64/">MinGW-w64 - for 32 and 64 bit Windows download | SourceForge.net</a></p>
+<h2 id="2-安装hugo">2 安装hugo</h2>
+<p>前面所有软件装完之后就可以安装hugo了，这个很简单，官网也介绍了，打开git bash敲入一行代码即可解决。</p>
+<p><code>go install -tags extended github.com/gohugoio/hugo@latest</code></p>
+<p>等待完成后在git bash页面敲<code>hugo version</code>看看hugo是否安装成功。</p>
+<h2 id="3-使用hugo开始搭建自己的博客">3 使用hugo开始搭建自己的博客</h2>
+<p>找一个文件夹，在git命令行下cd进入，然后输入：</p>
+<p><code>hugo new site yoursitename</code></p>
+<p>搞完后去找一个主题git clone一下到themes目录下:</p>
+<p><code>git clone https://github.com/olOwOlo/hugo-theme-even themes/even</code></p>
+<p>然后去even目录下的exampleSite目录找到config.toml文件将里面的内容复制到网站根目录下的config.toml里覆盖掉原来的内容，这样就得到一个标准的even博客页面辣。</p>
+<p><strong>发布一篇博客</strong></p>
+<p><code>hugo new post/first_post.md</code></p>
+<p>然后就可以在这个first_post.md文件里写自己的笔记辣</p>
+<p><strong>本地检视博客内容</strong></p>
+<p><code>hugo server</code></p>
+<p>ps:图片的根目录是 <code>static</code> 目录哟，也就是你在<code>static</code>目录创建文件夹并且存放文件，但是在有even主题的情况下，这个<code>static</code>目录是指<code>even</code>目录下的<code>static</code>目录而不是根目录下的<code>static</code>目录。</p>
+<h2 id="4-将博客部署到github上并且利用vercel绑定域名托管">4 将博客部署到github上并且利用vercel绑定域名托管</h2>
+<p>这个怎么部署到github和托管vercel我就不详细说了，建议看大佬的教程：</p>
+<p><a href="https://www.leftpocket.cn/post/hugo/hugo_vercel/">从零开始搭建个人博客网站系列 三、hugo站点自动部署到vercel托管平台 - 码农在新加坡的个人博客 (leftpocket.cn)</a></p>
+<p><a href="https://www.leftpocket.cn/post/hugo/hugo_dns/">从零开始搭建个人博客网站系列 四、申请免费域名并绑定到个人博客 - 码农在新加坡的个人博客 (leftpocket.cn)</a></p>
+<p>我就说一下我这里与大佬的那个申请域名和dns解析的不同，因为我用的是阿里云的域名，所以要在阿里云上购买，买那个一年9块钱的域名（购买需实名认证哟），买完可以看到</p>
+<p><img src="/img/yuming.png" alt="dnsyuming"></p>
+<p>点击解析，到了解析界面就可以发现与那个腾讯的dns解析服务有类似的操作，然后照着添加A记录和CNAME记录即可，最后vercel里面就会自动部署了，每一次更新博客都可以在本地git bash下面push掉hugo生成的public文件夹，这样远程也会自动部署更新网页。（ps：可以本地搞几个软连接，然后就不用每次来回复制文件了，这个教程也可看那个大佬滴哈哈哈）</p>
+<p>总之，我这个真的是浅浅记录一下，因为好多大佬都写过类似流程早已完善了，因此我只是对不同之处作个介绍，如有不当和过于菜鸟水平之处，还请各位大佬多多指点啦。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/hugo/">hugo</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_hugoconfig/">
+            <span class="next-text nav-default">小记hugo中的一些配置问题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="url"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客架构 
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+
+  <span class="copyright-and-others">Copyright &copy; 2023 <a href="https://www.cnblogs.com/zengy-bioinfostudy/" style="color:#c05b4d">Craftor18</a></span>. All Rights Reserved
+</div>
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
