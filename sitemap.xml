@@ -3,14 +3,49 @@
   
   <url>
     <loc>https://craftor18.github.io/categories/</loc>
-    <lastmod>2023-02-07T14:44:16+08:00</lastmod>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://craftor18.github.io/</loc>
-    <lastmod>2023-02-07T14:44:16+08:00</lastmod>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/post/</loc>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/tags/</loc>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/post/record_of_population_analysis/</loc>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/</loc>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://craftor18.github.io/categories/%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2023-02-11T00:36:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,28 +58,7 @@
   </url>
   
   <url>
-    <loc>https://craftor18.github.io/post/</loc>
-    <lastmod>2023-02-07T14:44:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://craftor18.github.io/tags/</loc>
-    <lastmod>2023-02-07T14:44:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://craftor18.github.io/post/hugo_pipeline/</loc>
-    <lastmod>2023-02-07T14:44:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://craftor18.github.io/categories/%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2023-02-07T14:44:16+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

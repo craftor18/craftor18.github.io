@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>生物信息学 on craftor18的个人博客</title>
+    <link>https://craftor18.github.io/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/</link>
+    <description>Recent content in 生物信息学 on craftor18的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 11 Feb 2023 00:36:15 +0800</lastBuildDate><atom:link href="https://craftor18.github.io/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>群体遗传进化分析笔记（一）</title>
+      <link>https://craftor18.github.io/post/record_of_population_analysis/</link>
+      <pubDate>Sat, 11 Feb 2023 00:36:15 +0800</pubDate>
+      
+      <guid>https://craftor18.github.io/post/record_of_population_analysis/</guid>
+      <description>群体遗传学涉及几个进化学说，包括中性学说、正选择vs负选择这些，传统群体遗传学是基于观察到的等位基因频率与预期频率的分析。近些年来群体遗传进</description>
+    </item>
+    
+  </channel>
+</rss>
