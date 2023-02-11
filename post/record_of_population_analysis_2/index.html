@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>群体遗传进化分析笔记（二） - craftor18的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="本篇为跟着组学大讲堂的群体遗传学课程的跟练记录，上一篇记录了相关分析背景知识，因此这一篇来实操一下。 原始数据目录结构 接下来进行一些环境变量的" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.github.io/post/record_of_population_analysis_2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="群体遗传进化分析笔记（二）" />
+<meta property="og:description" content="本篇为跟着组学大讲堂的群体遗传学课程的跟练记录，上一篇记录了相关分析背景知识，因此这一篇来实操一下。 原始数据目录结构 接下来进行一些环境变量的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.github.io/post/record_of_population_analysis_2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-11T17:56:29+08:00" />
+<meta property="article:modified_time" content="2023-02-11T17:56:29+08:00" />
+<meta itemprop="name" content="群体遗传进化分析笔记（二）">
+<meta itemprop="description" content="本篇为跟着组学大讲堂的群体遗传学课程的跟练记录，上一篇记录了相关分析背景知识，因此这一篇来实操一下。 原始数据目录结构 接下来进行一些环境变量的"><meta itemprop="datePublished" content="2023-02-11T17:56:29+08:00" />
+<meta itemprop="dateModified" content="2023-02-11T17:56:29+08:00" />
+<meta itemprop="wordCount" content="1195">
+<meta itemprop="keywords" content="群体遗传,生物信息学," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="群体遗传进化分析笔记（二）"/>
+<meta name="twitter:description" content="本篇为跟着组学大讲堂的群体遗传学课程的跟练记录，上一篇记录了相关分析背景知识，因此这一篇来实操一下。 原始数据目录结构 接下来进行一些环境变量的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">群体遗传进化分析笔记（二）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 1195 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#对数据进行过滤">对数据进行过滤</a></li>
+            <li><a href="#进化树分析">进化树分析</a></li>
+            <li><a href="#pca分析">PCA分析</a></li>
+            <li><a href="#今日の总结">今日の总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本篇为跟着组学大讲堂的群体遗传学课程的跟练记录，上一篇记录了相关分析背景知识，因此这一篇来实操一下。</p>
+<p><em>原始数据目录结构</em></p>
+<img src="/img/data_tree.png" alt="data_tree" style="zoom:67%;" />
+<p>接下来进行一些环境变量的赋值方便后续分析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">workdir</span><span class="o">=</span>/work/pop_cucu <span class="c1">#设置工作路径</span>
+</span></span><span class="line"><span class="cl"><span class="nv">refdir</span><span class="o">=</span><span class="nv">$workdir</span>/ref
+</span></span><span class="line"><span class="cl"><span class="nv">datadir</span><span class="o">=</span><span class="nv">$workdir</span>/data
+</span></span><span class="line"><span class="cl"><span class="nv">scriptdir</span><span class="o">=</span><span class="nv">$workdir</span>/scripts
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$scriptdir</span>:<span class="nv">$PATH</span>    <span class="c1">#组学大讲堂提供的脚本 添加到环境变量中方便使用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#一些关键文件所在的路径变量</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GFF</span><span class="o">=</span><span class="nv">$refdir</span>/Cucumber_v2.gff3
+</span></span><span class="line"><span class="cl"><span class="nv">REF</span><span class="o">=</span><span class="nv">$refdir</span>/Cucumber_v2.chr.fa
+</span></span><span class="line"><span class="cl"><span class="nv">FAI</span><span class="o">=</span><span class="nv">$refdir</span>/Cucumber_v2.chr.fa.fai
+</span></span><span class="line"><span class="cl"><span class="nv">GROUP</span><span class="o">=</span><span class="nv">$datadir</span>/pop_group.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="对数据进行过滤">对数据进行过滤</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 00.filter
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 00.filter
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>两步，第一步根据indel进行硬过滤，随后使用vcftools进行软过滤。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#过滤1：vcfutils.pl  过滤掉indel附近的snp, 因此VCF数据中必须包含INDEL</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -w INT    SNP within INT bp around a gap to be filtered [3]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -W INT    window size for filtering adjacent gaps [10]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vcfutils.pl varFilter -w <span class="m">5</span> -W <span class="m">10</span> <span class="s2">&#34;gzip -dc </span><span class="nv">$datadir</span><span class="s2">/cucu.vcf.gz|&#34;</span> <span class="p">|</span>gzip - &gt;all.varFilter.vcf.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#过滤2：vcftools</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--max-missing Exclude sites on the basis of the proportion of missing data </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(defined to be between 0 and 1, where 0 allows sites that are completely missing </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#and 1 indicates no missing data allowed).</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vcftools --gzvcf all.varFilter.vcf.gz --recode --recode-INFO-all --stdout     --maf 0.05  --max-missing 0.8  --minDP <span class="m">2</span>  --maxDP <span class="m">1000</span>      <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --minQ <span class="m">30</span> --minGQ <span class="m">0</span> --min-alleles <span class="m">2</span>  --max-alleles <span class="m">2</span> --remove-indels <span class="p">|</span>gzip - &gt; clean.vcf.gz  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>两步过滤之后最终得到<code>clean.vcf.gz</code></p>
+<h3 id="进化树分析">进化树分析</h3>
+<p>系统发育树（phylogenetic tree），也叫进化树。  通常系统发育树分为<strong>有根树</strong>和<strong>无根树</strong>。 常用的建树方法有基于距离的方法比如NJ或者UPGMA ；而基于特征的方法则有MP、ML、BI等方法。常用的 分析工具Phylip 、Iqtree 、Fasttree、Raxml这些，它们有些软件可能有win和linux两种版本，通常建树需求较高或者样本量多的话建议还是在linux操作系统下的集群服务器上跑。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 01.phylo_tree
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 01.phylo_tree
+</span></span><span class="line"><span class="cl"><span class="c1">#文件格式转换</span>
+</span></span><span class="line"><span class="cl">run_pipeline.pl  -Xmx5G -importGuess  <span class="nv">$workdir</span>/00.filter/clean.vcf.gz  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -ExportPlugin -saveAs supergene.phy -format Phylip_Inter
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#最大似然法构建进化树</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#方法1：fasttree 构建进化树</span>
+</span></span><span class="line"><span class="cl">fasttree -nt -gtr  supergene.phy   &gt;  fasttree.nwk
+</span></span><span class="line"><span class="cl"><span class="c1">#方法2：iqtree 构建进化树  设置boots值，最大似然法</span>
+</span></span><span class="line"><span class="cl">iqtree2 -s supergene.phy -st DNA -T <span class="m">2</span>  -mem 8G <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -m  GTR  -redo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -B <span class="m">1000</span> -bnni <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --prefix iqtree 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1">#方法3：raxml 构建进化树 最大似然法</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#raxml-ng  -msa supergene.phy --model GTR  --prefix raxml_tree \</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    --threads 2 --seed 123   1&gt;raxml.log 2&gt;raxml.err</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## with bootstrap</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#raxml-ng -all  -msa supergene.phy --model GTR --bs-trees 1000 \</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#    --prefix raxml_tree_bootstrap --threads 2 --seed 123   1&gt;raxml_bs.log 2&gt;raxml_bs.err</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#进化树绘制</span>
+</span></span><span class="line"><span class="cl">ggtree.r -t fasttree.nwk -f <span class="nv">$GROUP</span> -g Group -n fasttree
+</span></span><span class="line"><span class="cl">ggtree.r -t fasttree.nwk -f <span class="nv">$GROUP</span> -g Group -n fasttree.unrooted -l unrooted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ggtree.r -t iqtree.treefile -f <span class="nv">$GROUP</span> -g Group -n iqtree
+</span></span><span class="line"><span class="cl">ggtree.r -t iqtree.treefile -f <span class="nv">$GROUP</span> -g Group -n iqtree.unrooted -l unrooted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ggtree.r -t raxml_tree.raxml.bestTree -f <span class="nv">$GROUP</span> -g Group -n raxml
+</span></span><span class="line"><span class="cl">ggtree.r -t raxml_tree.raxml.bestTree -f <span class="nv">$GROUP</span> -g Group -n raxml.unrooted -l unrooted
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pca分析">PCA分析</h3>
+<p><strong>主成分分析</strong>（PCA Principal Component  Analysis）：是一种降维分析方法，将数据主要的信 息以主成分形式保留下来，忽略掉数据中不重要的次要信息。这些主成分保留原始数据的绝大部分信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 02.PCA
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 02.PCA
+</span></span><span class="line"><span class="cl"><span class="c1">#方法1：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## plink分析PCA</span>
+</span></span><span class="line"><span class="cl">plink --vcf  <span class="nv">$workdir</span>/00.filter/clean.vcf.gz --pca <span class="m">10</span> --out  plink_pca   <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --allow-extra-chr --set-missing-var-ids @:#    --vcf-half-call missing
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#绘图</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pca_plink_plot.r -i plink_pca.eigenvec -f <span class="nv">$GROUP</span> -g Group --name plink_pca
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>PCA分析可以用来进行查看分群信息、检测离群样本和推断亚群间进化关系等，是一种数据降维分析的方式，在机器学习中也是一种数据的降维方式，在聚类分析和支持向量机等非监督学习很基础。</p>
+<h3 id="今日の总结">今日の总结</h3>
+<p>学习了如何从原始的vcf文件过滤得到clean过得vcf文件以及利用vcf文件进行基于SNP的进化树绘制和进行PCA分析，本质上都是为了后续的SNP位点的筛选。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0/">群体遗传</a>
+          <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_population_analysis/">
+            <span class="next-text nav-default">群体遗传进化分析笔记（一）</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="url"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客架构 
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+
+  <span class="copyright-and-others">Copyright &copy; 2023 <a href="https://www.cnblogs.com/zengy-bioinfostudy/" style="color:#c05b4d">Craftor18</a></span>. All Rights Reserved
+</div>
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
