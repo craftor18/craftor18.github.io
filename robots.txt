@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://craftor18.github.io/sitemap.xml
+Sitemap: https://craftor18.top/sitemap.xml
