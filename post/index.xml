@@ -6,7 +6,16 @@
     <description>Recent content in Posts on craftor18的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 11 Feb 2023 17:56:29 +0800</lastBuildDate><atom:link href="https://craftor18.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 12:30:49 +0800</lastBuildDate><atom:link href="https://craftor18.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>群体遗传进化分析笔记（三） 关于群体选择消除分析的一些概念知识</title>
+      <link>https://craftor18.top/post/record_of_population_analysis_3/</link>
+      <pubDate>Sun, 12 Feb 2023 12:30:49 +0800</pubDate>
+      
+      <guid>https://craftor18.top/post/record_of_population_analysis_3/</guid>
+      <description>选择清除分析（select sweep）是我们研究群体进化过程中哪些突变有利哪些突变受筛选的一种有效的分析方式，帮助我们筛选一些群体突变基因。</description>
+    </item>
+    
     <item>
       <title>群体遗传进化分析笔记（二）</title>
       <link>https://craftor18.top/post/record_of_population_analysis_2/</link>
