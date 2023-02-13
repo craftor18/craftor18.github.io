@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录 - craftor18的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="接着我们上次做的PCA分析，可以看到，每个不同的分析都是放在不同的文件夹下进行，这次做两个分析，一个是admixture群体结构分析，一个是" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.top/post/record_of_population_analysis_4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录" />
+<meta property="og:description" content="接着我们上次做的PCA分析，可以看到，每个不同的分析都是放在不同的文件夹下进行，这次做两个分析，一个是admixture群体结构分析，一个是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.top/post/record_of_population_analysis_4/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-13T18:07:11+08:00" />
+<meta property="article:modified_time" content="2023-02-13T18:07:11+08:00" />
+<meta itemprop="name" content="群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录">
+<meta itemprop="description" content="接着我们上次做的PCA分析，可以看到，每个不同的分析都是放在不同的文件夹下进行，这次做两个分析，一个是admixture群体结构分析，一个是"><meta itemprop="datePublished" content="2023-02-13T18:07:11+08:00" />
+<meta itemprop="dateModified" content="2023-02-13T18:07:11+08:00" />
+<meta itemprop="wordCount" content="945">
+<meta itemprop="keywords" content="群体遗传,生物信息学," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录"/>
+<meta name="twitter:description" content="接着我们上次做的PCA分析，可以看到，每个不同的分析都是放在不同的文件夹下进行，这次做两个分析，一个是admixture群体结构分析，一个是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007"
+     crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-13 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 945 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#今日の学习总结">今日の学习总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>接着我们上次做的PCA分析，可以看到，每个不同的分析都是放在不同的文件夹下进行，这次做两个分析，一个是admixture群体结构分析，一个是LD连锁不平衡分析，关于这两个分析代表的含义，admixture主要是对群体进行亚分类，看看k值设定不同的情况下，不同亚类的分布情况，LD连锁不平衡分析则是用来判断群体进化过程中的受选择程度，其计算主要基于连锁群中等位基因的频率，LD，当位于某一座位的特定等位基因与另一座位的某一等位基因同时出现的概率大于群体中因随机分布的两个等位基因同时出现的概率时，就称这两个座位处于<strong>连锁不平衡状态（linkage disequilibrium）</strong>。</p>
+<p>下面的命令主要在linux命令行或者docker命令行下运行，不同的参数可能会导致结果有所不同，因此需要设置合理的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 03.STRUCTURE
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 03.STRUCTURE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## filter LD </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#50 10 0.2   50个SNP 窗口  step 10个  r2 0.2  ; 50 5 0.4</span>
+</span></span><span class="line"><span class="cl">plink --vcf  <span class="nv">$workdir</span>/00.filter/clean.vcf.gz  --indep-pairwise <span class="m">50</span> <span class="m">10</span> 0.2 --out ld   <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --allow-extra-chr --set-missing-var-ids @:# 
+</span></span><span class="line"><span class="cl">plink --vcf  <span class="nv">$workdir</span>/00.filter/clean.vcf.gz  --make-bed --extract ld.prune.in  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --out LDfiltered --recode vcf-iid  --keep-allele-order  --allow-extra-chr --set-missing-var-ids @:#  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#转换成plink格式</span>
+</span></span><span class="line"><span class="cl">vcftools --vcf LDfiltered.vcf --plink <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --out plink
+</span></span><span class="line"><span class="cl"><span class="c1">#转换成admixture要求的bed格式</span>
+</span></span><span class="line"><span class="cl">plink --noweb --file plink  --recode12 --out admixture <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     --allow-extra-chr  --keep-allele-order
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#admixture 群体结构分析</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> k in <span class="o">{</span>2..10<span class="o">}</span><span class="p">;</span><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    admixture -j2 -C 0.01 --cv admixture.ped <span class="nv">$k</span> &gt;admixture.log<span class="nv">$k</span>.out
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#绘图展示 </span>
+</span></span><span class="line"><span class="cl">structure_plot.r  -d ./ -s admixture.nosex 
+</span></span><span class="line"><span class="cl">structure_plot.r  -d ./ -s admixture.nosex -f <span class="nv">$GROUP</span> -g Group  <span class="c1">#按照分组顺序显示</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#确定最佳K，CV值最小时对应的K值为最佳K</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">grep <span class="s2">&#34;CV error&#34;</span> *out
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##########################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#连锁不平衡分析 LDdecay</span>
+</span></span><span class="line"><span class="cl"><span class="c1">########################################################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 04.LDdecay
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 04.LDdecay
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#分组：根据自己的分组名称进行拆分</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep EastAsian <span class="p">|</span>cut -f <span class="m">1</span> &gt;EastAsian_popid.txt
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep Eurasian <span class="p">|</span>cut -f <span class="m">1</span> &gt;Eurasian_popid.txt
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep Xishuangbanna <span class="p">|</span>cut -f <span class="m">1</span> &gt;Xishuangbanna_popid.txt
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep Indian <span class="p">|</span>cut -f <span class="m">1</span> &gt;Indian_popid.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in EastAsian Eurasian Xishuangbanna  Indian<span class="p">;</span><span class="k">do</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    PopLDdecay -InVCF  <span class="nv">$workdir</span>/00.filter/clean.vcf.gz <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -SubPop  <span class="si">${</span><span class="nv">i</span><span class="si">}</span>_popid.txt -MaxDist <span class="m">500</span> -OutStat <span class="si">${</span><span class="nv">i</span><span class="si">}</span>.stat
+</span></span><span class="line"><span class="cl">    Plot_OnePop.pl -inFile <span class="si">${</span><span class="nv">i</span><span class="si">}</span>.stat.gz -output <span class="si">${</span><span class="nv">i</span><span class="si">}</span>.ld
+</span></span><span class="line"><span class="cl"><span class="k">done</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#多个群体放在一张图中</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> EastAsian.stat.gz EastAsian &gt;ld_stat.list
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> Eurasian.stat.gz Eurasian &gt;&gt;ld_stat.list
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> Xishuangbanna.stat.gz Xishuangbanna &gt;&gt;ld_stat.list
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> Indian.stat.gz Indian &gt;&gt;ld_stat.list
+</span></span><span class="line"><span class="cl">Plot_MultiPop.pl -inList ld_stat.list -output ld_stat.multi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="今日の学习总结">今日の学习总结</h3>
+<p>今天主要跟着上面的流程跑了一遍两个分析，感觉对于群体进化的速率这个概念和群体中亚分类的标准有了一定的认识，我们在研究群体的时候往往不能只考虑地理分布的环境，还应该考虑到当地这个群体是否是由别的群体迁徙而来以及一些进化历史中的大事件对其造成的影响等等因素。因此，群体进化的研究用GWAS分析比较合适，GWAS检测到显著关联的区间，可以通过进一步绘制局部的LD单体型块图，来进一步判断显著相关的SNP和目标基因间是否存在强LD关系。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0/">群体遗传</a>
+          <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_population_analysis_3/">
+            <span class="next-text nav-default">群体遗传进化分析笔记（三） 关于群体选择消除分析的一些概念知识</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="url"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客架构 
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+
+  <footer>
+    <span>Copyright © 2023 </span>
+    <a href="https://www.cnblogs.com/zengy-bioinfostudy/">
+      <span>💖Craftor18</span>
+    </a>
+  </footer>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
