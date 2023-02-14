@@ -6,7 +6,16 @@
     <description>Recent content on craftor18的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 13 Feb 2023 18:07:11 +0800</lastBuildDate><atom:link href="https://craftor18.top/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Feb 2023 14:37:53 +0800</lastBuildDate><atom:link href="https://craftor18.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>群体遗传进化学学习笔记（五）选择清除分析运行实操</title>
+      <link>https://craftor18.top/post/record_of_population_analysis_5/</link>
+      <pubDate>Tue, 14 Feb 2023 14:37:53 +0800</pubDate>
+      
+      <guid>https://craftor18.top/post/record_of_population_analysis_5/</guid>
+      <description>从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然</description>
+    </item>
+    
     <item>
       <title>群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录</title>
       <link>https://craftor18.top/post/record_of_population_analysis_4/</link>

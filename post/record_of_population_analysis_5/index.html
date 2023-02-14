@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>群体遗传进化学学习笔记（五）选择清除分析运行实操 - craftor18的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.top/post/record_of_population_analysis_5/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="群体遗传进化学学习笔记（五）选择清除分析运行实操" />
+<meta property="og:description" content="从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.top/post/record_of_population_analysis_5/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-14T14:37:53+08:00" />
+<meta property="article:modified_time" content="2023-02-14T14:37:53+08:00" />
+<meta itemprop="name" content="群体遗传进化学学习笔记（五）选择清除分析运行实操">
+<meta itemprop="description" content="从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然"><meta itemprop="datePublished" content="2023-02-14T14:37:53+08:00" />
+<meta itemprop="dateModified" content="2023-02-14T14:37:53+08:00" />
+<meta itemprop="wordCount" content="1645">
+<meta itemprop="keywords" content="群体遗传学,生物信息学," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="群体遗传进化学学习笔记（五）选择清除分析运行实操"/>
+<meta name="twitter:description" content="从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007"
+     crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">群体遗传进化学学习笔记（五）选择清除分析运行实操</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-14 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 1645 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#fstpi值的计算">Fst、pi值的计算</a></li>
+            <li><a href="#rod值的计算及绘图">ROD值的计算及绘图</a></li>
+            <li><a href="#选择消除分析">选择消除分析</a></li>
+            <li><a href="#今日の总结">今日の总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>从群体遗传学的各个概念，到群体遗传学结构分析的各个步骤，可以看出，这些值的计算基本都是基于vcf文件，因此重测序分析的学习也很重要，不过既然我们已经有了vcf文件，那么本篇实操一下<strong>选择清除分析</strong>的流程，当然，还是用基因组学大讲堂的流程，但是我在运行过程中也发现了一些脚本需要修改一下才能正确显示出图。</p>
+<p>数据目前的目录结构:我所有的脚本和命令都拷到了linux的docker 里面，因此工作路径还是比较清楚的，如何安装docker和镜像的教程可以自己上网查查。组学大讲堂里好像也有。</p>
+<p><code> docker pull omicsclass/pop-evol-gwas:latest #下载镜像</code></p>
+<p><code> docker run --rm -it -m 4G --cpus 1 -v /share/work/huangls/pop_evo:/work omicsclass/pop-evol-gwas:latest</code></p>
+<p><img src="/img/dirstr.png" alt="dirstr"></p>
+<h3 id="fstpi值的计算">Fst、pi值的计算</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">######################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#选择消除分析  fst pi ROD  基于多样性降低</span>
+</span></span><span class="line"><span class="cl"><span class="c1">########################################################</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 05.select_sweep
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 05.select_sweep
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#不同群体的样本分开放到不同的文件中</span>
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep wild <span class="p">|</span>cut -f <span class="m">1</span> &gt;wild_popid.txt
+</span></span><span class="line"><span class="cl">cat <span class="nv">$GROUP</span> <span class="p">|</span>grep cultivated<span class="p">|</span>grep -v <span class="s2">&#34;Indian&#34;</span><span class="p">|</span>grep -v <span class="s2">&#34;Xishuangbanna&#34;</span> <span class="p">|</span>cut -f <span class="m">1</span> &gt;cultivated_popid.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#fst  pi  tajimaD分析</span>
+</span></span><span class="line"><span class="cl">mkdir fst_pi_ROD
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> fst_pi_ROD
+</span></span><span class="line"><span class="cl"><span class="c1">#设置输入的vcf文件与计算的窗口和步长</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gzvcf</span><span class="o">=</span><span class="nv">$workdir</span>/00.filter/clean.vcf.gz
+</span></span><span class="line"><span class="cl"><span class="nv">window</span><span class="o">=</span><span class="m">100000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">step</span><span class="o">=</span><span class="m">10000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#pi 多样性</span>
+</span></span><span class="line"><span class="cl">vcftools  --gzvcf <span class="nv">$gzvcf</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --window-pi <span class="nv">$window</span> --window-pi-step  <span class="nv">$step</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --keep ../wild_popid.txt   --out pi.wild
+</span></span><span class="line"><span class="cl">vcftools  --gzvcf <span class="nv">$gzvcf</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --window-pi <span class="nv">$window</span> --window-pi-step  <span class="nv">$step</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --keep ../cultivated_popid.txt  --out pi.cultivated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#pi多样性绘图输出</span>
+</span></span><span class="line"><span class="cl">pi_manhattan_plot.r -i pi.wild.windowed.pi -F <span class="nv">$FAI</span> -f <span class="m">19226500</span> -n pi.wild
+</span></span><span class="line"><span class="cl">pi_smooth_line_plot.r -i pi.wild.windowed.pi -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n pi.wild.smoothline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Fst  群体间多样性差异</span>
+</span></span><span class="line"><span class="cl">vcftools  --gzvcf <span class="nv">$gzvcf</span> --fst-window-size <span class="nv">$window</span> --fst-window-step <span class="nv">$step</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --weir-fst-pop  ../wild_popid.txt --weir-fst-pop ../cultivated_popid.txt --out  Fst.wild.cultivated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#fst绘图输出</span>
+</span></span><span class="line"><span class="cl">fst_manhattan_plot.r -i Fst.wild.cultivated.windowed.weir.fst -F <span class="nv">$FAI</span> -f <span class="m">19226500</span> -n Fst.wild.cultivated
+</span></span><span class="line"><span class="cl">fst_manhattan_plot.r -i Fst.wild.cultivated.windowed.weir.fst -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n Fst.wild.cultivated_vline --vline
+</span></span><span class="line"><span class="cl">fst_smooth_line_plot.r -i Fst.wild.cultivated.windowed.weir.fst -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n Fst.wild.cultivated_smoothline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#fst 与 pi 联合 筛选受选择区域</span>
+</span></span><span class="line"><span class="cl">Rscript <span class="nv">$scriptdir</span>/fst_pi_select_sweep.r --fst Fst.wild.cultivated.windowed.weir.fst <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --pi1 pi.wild.windowed.pi --pi2 pi.cultivated.windowed.pi --zscore --log2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -A wild -B cultivated -c 0.05 -n fst-pi.wild-vs-cultivated  -f pdf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Rscript <span class="nv">$scriptdir</span>/fst_pi_select_sweep.r --fst Fst.wild.cultivated.windowed.weir.fst <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --pi1 pi.wild.windowed.pi --pi2 pi.cultivated.windowed.pi --zscore --log2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -A wild -B cultivated -c 0.05 -n fst-pi.wild-vs-cultivated  -f png
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rod值的计算及绘图">ROD值的计算及绘图</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#ROD计算与展示</span>
+</span></span><span class="line"><span class="cl">rod_calculate.r --wild pi.wild.windowed.pi --domesticated pi.cultivated.windowed.pi -p ROD.wild.cultivated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#绘图输出</span>
+</span></span><span class="line"><span class="cl">rod_manhattan_plot.r -i ROD.wild.cultivated.txt -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n ROD.wild.cultivated 
+</span></span><span class="line"><span class="cl">rod_smooth_line_plot.r -i ROD.wild.cultivated.txt -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n ROD.wild.cultivated.smoothline
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="选择消除分析">选择消除分析</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#选择消除分析   XP-CLR  tajima&#39;D 分析  基于频率差异  </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#################################################</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span>  <span class="nv">$workdir</span>/05.select_sweep
+</span></span><span class="line"><span class="cl">mkdir xpclr
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> xpclr
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## xpclr软件每次只能运行1个染色体</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 原始的XPCLR分析：https://www.omicsclass.com/article/1334</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#python 版本的xpclr,结果说明见：  https://github.com/hardingnj/xpclr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#不同的染色体分别计算</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in Chr1 Chr2 Chr3 Chr4 Chr5 Chr6 Chr7<span class="p">;</span><span class="k">do</span> <span class="o">(</span>xpclr --format vcf --input <span class="nv">$workdir</span>/00.filter/clean.vcf.gz --samplesA ../wild_popid.txt --samplesB ../cultivated_popid.txt --out ./<span class="nv">$i</span>.xpclr --chr <span class="nv">$i</span> --size <span class="nv">$window</span>  --step <span class="nv">$step</span> --maxsnps <span class="m">200</span> --minsnps <span class="m">5</span> <span class="p">&amp;</span><span class="o">)</span><span class="p">;</span><span class="k">done</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#python 版本的xpclr参数使用说明：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--format 指定输入文件格式</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--input 指定输入文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--samplesA or B 指定参与分析的个体</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--chr 指明运行的染色体</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--phased 指明vcf文件是phased后的（如果没有phased就去掉）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--ld 指定用于加权的连锁不衡阈值</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--maxsnp 窗口内参与计算的SNP数量</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--size 指定滑窗的大小（物理距离）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--step 指定步长</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--out 指定输出文件名</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--rrate 指定每bp的重组率</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#awk合并文件 保留第一个文件的表头</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;FNR==1 &amp;&amp; NR!=1{next;}{print}&#39;</span> *.xpclr &gt;all.chr.xpclr
+</span></span><span class="line"><span class="cl">xpclr_manhattan_plot.r -i all.chr.xpclr -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n all.chr.xpclr --vline
+</span></span><span class="line"><span class="cl">xpclr_smooth_line_plot.r -i all.chr.xpclr -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n all.chr.xpclr.smoothline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span>  <span class="nv">$workdir</span>/05.select_sweep
+</span></span><span class="line"><span class="cl">mkdir TajimaD
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> TajimaD
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Tajima&#39;s D </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#vcftools无法用滑动窗口</span>
+</span></span><span class="line"><span class="cl">vcftools --gzvcf <span class="nv">$gzvcf</span> --TajimaD  <span class="m">100000</span>  --keep  ../wild_popid.txt  --out wild
+</span></span><span class="line"><span class="cl">vcftools --gzvcf <span class="nv">$gzvcf</span> --TajimaD  <span class="m">100000</span>  --keep  ../cultivated_popid.txt  --out cultivated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tajimaD_manhattan_plot.r -i cultivated.Tajima.D -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n TajimaD.cultivated 
+</span></span><span class="line"><span class="cl">tajimaD_smooth_line_plot.r -i cultivated.Tajima.D -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n TajimaD.cultivated.smoothline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tajimaD_manhattan_plot.r -i wild.Tajima.D -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n TajimaD.wild 
+</span></span><span class="line"><span class="cl">tajimaD_smooth_line_plot.r -i wild.Tajima.D -F <span class="nv">$FAI</span> -f <span class="m">19226500</span>  -n TajimaD.wild.smoothline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">####################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#xpehh  https://www.mdpi.com/2076-2615/11/1/157/htm</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#########################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#需要遗传图或者phase</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">###############################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#筛选候选区域基因</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##################################################</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span>  <span class="nv">$workdir</span>/05.select_sweep
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#以Fst top 5%的区域作为候选区域，筛选区域里面的基因为例</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#合并区域</span>
+</span></span><span class="line"><span class="cl">bedtools merge -i fst_pi_ROD/Fst.wild.cultivated_selected_region_top0.05.txt &gt;fst_top0.5_selected_region.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#gff中获取基因位置</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;$3==&#34;gene&#34;&#39;</span> <span class="nv">$GFF</span> &gt; gene.gff
+</span></span><span class="line"><span class="cl"><span class="c1">#筛选受选择区域内基因</span>
+</span></span><span class="line"><span class="cl">bedtools  intersect -wo -F 0.1 -nonamecheck -a  fst_top0.5_selected_region.txt -b gene.gff <span class="p">|</span> sort -u  &gt; Fst.top0.05.gene.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="今日の总结">今日の总结</h3>
+<p>主要学习了如何利用vcftools根据vcf文件中info和样本haplotype里有关基因频率参数来计算fst和pi以及ROD等各项与群体遗传进化学上重要值，计算过程则无需我们担心，因为vcftools会自动识别，但是有关结果的结构和转换是我们需要知道的，因为这能帮助我们有效筛选符合条件的SNP和绘图时设置一些参数从而避免绘图结果不好看或者筛选出一些假阳性的结果。总的来说，等位基因频率与中性进化假说是我们计算这三个数值时需要考虑到的，根据这些来设置有关滑动窗口以及steps从而得到合理的计算结果，避免错过一些重要SNP位点。在学习的过程中我主要参考其利用bedtools提取对应基因位置的过程，以此来编写自己提取SNP位置的过程，因为SNP位置的提取似乎只需要以来vcf文件即可，无需参考基因组注释文件，但是需要是snpeff注释过得vcf文件。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0%E5%AD%A6/">群体遗传学</a>
+          <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_population_analysis_4/">
+            <span class="next-text nav-default">群体遗传学学习笔记（四） 关于群体结构STRCTURE的一些分析实操记录</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="url"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客架构 
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+
+  <footer>
+    <span>Copyright © 2023 </span>
+    <a href="https://www.cnblogs.com/zengy-bioinfostudy/">
+      <span>💖Craftor18</span>
+    </a>
+  </footer>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
