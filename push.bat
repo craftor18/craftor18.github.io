@@ -1,4 +1,4 @@
-git add *
+git add .
 git commit -m "update %date%,%time%"
-git push origin master
+git push origin hugo
 
