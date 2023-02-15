@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://craftor18.top/sitemap.xml
