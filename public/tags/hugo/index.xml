@@ -6,7 +6,16 @@
     <description>Recent content in hugo on craftor18的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 07 Feb 2023 14:44:16 +0800</lastBuildDate><atom:link href="https://craftor18.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Feb 2023 12:54:34 +0800</lastBuildDate><atom:link href="https://craftor18.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于如何在github上自动部署hugo博客的一些记录</title>
+      <link>https://craftor18.top/post/hugo_auto_deploy/</link>
+      <pubDate>Thu, 16 Feb 2023 12:54:34 +0800</pubDate>
+      
+      <guid>https://craftor18.top/post/hugo_auto_deploy/</guid>
+      <description>之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在</description>
+    </item>
+    
     <item>
       <title>浅浅记录一下hugo的简易部署流程（阿里域名版）</title>
       <link>https://craftor18.top/post/hugo_pipeline/</link>

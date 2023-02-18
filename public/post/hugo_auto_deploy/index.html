@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于如何在github上自动部署hugo博客的一些记录 - craftor18的个人博客</title>
+  <style>
+    .heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #e74c3c;
+      border-radius: 50%;
+      animation: heart 1s ease-out;
+    }
+
+    @keyframes heart {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+  </style>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.top/post/hugo_auto_deploy/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.3999dfa24012d9116ab7bb7b8df643f955be5aa115d4562897647253af5b56c2.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://craftor18.top/css/custom.css">
+
+
+<meta property="og:title" content="关于如何在github上自动部署hugo博客的一些记录" />
+<meta property="og:description" content="之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.top/post/hugo_auto_deploy/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-16T12:54:34+08:00" />
+<meta property="article:modified_time" content="2023-02-16T12:54:34+08:00" />
+<meta itemprop="name" content="关于如何在github上自动部署hugo博客的一些记录">
+<meta itemprop="description" content="之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在"><meta itemprop="datePublished" content="2023-02-16T12:54:34+08:00" />
+<meta itemprop="dateModified" content="2023-02-16T12:54:34+08:00" />
+<meta itemprop="wordCount" content="1488">
+<meta itemprop="keywords" content="hugo," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于如何在github上自动部署hugo博客的一些记录"/>
+<meta name="twitter:description" content="之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于如何在github上自动部署hugo博客的一些记录</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-16 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 1488 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#0-前置条件">0 前置条件</a></li>
+            <li><a href="#1-博客源码连接github远程仓库">1 博客源码连接github远程仓库</a></li>
+            <li><a href="#2-github远程部署">2 github远程部署</a></li>
+            <li><a href="#3-总结">3 总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>之前一直是在本地进行hugo博客推送，有时候真的手贱，然后，我的配置文件就全被我搞乱了，然后又没有备份，只能一个个重新修改，真的好烦，所以在网上找了好些教程，总算把我自己的博客源码放在了github并且自动部署hugo博客，下面是我自己的一些操作流程。</p>
+<h3 id="0-前置条件">0 前置条件</h3>
+<p>默认已经安装了git、hugo和hugo的主题，并且如果有域名的话应该已经绑定了域名且使用了托管平台比如vercel托管平台。我的目录结构如下:</p>
+<p><img src="/img/blog_tree.png" alt="blog_tree"></p>
+<h3 id="1-博客源码连接github远程仓库">1 博客源码连接github远程仓库</h3>
+<p>首先我们应该是要在本地建立hugo博客的，而且前置条件是默认我们已经安装好了git 和hugo以及hugo的主题，这里我安装的是使用比较广泛的even主题，至于怎么安装前面三个东西的教程我相信应该已经有许多教程了，我也是看了大佬的教程才配置好的，可以看看我前面的博客应该有放这些大佬的链接，下面我们看看如何将源码链接到远程仓库。</p>
+<p>当然我们在此之前要在hugo博客源码的根目录下面先初始化git一下辣</p>
+<p><code>git init</code></p>
+<p>随后就可以链接远程仓库（ps：如果发现之前有其它的git分支，可以将整个目录所有的.git目录删掉，保证初始化正确执行，当然也会丢失之前所有git的缓冲区的内容哟）</p>
+<p><code>git remote add https://github.com/craftor18/craftor18.github.io.git  ## 链接远程仓库</code></p>
+<p>上面后面的仓库地址更改为自己的仓库即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">## 本地创建名为hugo的新分支</span>
+</span></span><span class="line"><span class="cl">git branch hugo
+</span></span><span class="line"><span class="cl"><span class="c1">## 切换到这个新的hugo分支</span>
+</span></span><span class="line"><span class="cl">git checkout hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##当然我们也可以在创建hugo分支的同时直接切换到hugo分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 添加当前源码目录下所有的内容到暂存区</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl"><span class="c1">## 将暂存区的内容放到本地仓库并且添加提交信息</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;first code commit&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 将本地仓库的内容推送到远程仓库，这里就是将整个博客源码目录全部提交到了github上，且分支为hugo，如果github远程仓库上原本就有hugo分支则会显示无法推送哟，需要先pull一下</span>
+</span></span><span class="line"><span class="cl">git push origin hugo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-github远程部署">2 github远程部署</h3>
+<p>为了能将github上hugo分支的public文件夹能够部署到另外一个网页gh-pages分支上，我们首先要在github上绑定本地创建的公钥和私钥。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">## git本地创建公钥和私钥</span>
+</span></span><span class="line"><span class="cl">ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;</span><span class="k">$(</span>git config user.email<span class="k">)</span><span class="s2">&#34;</span> -f gh-pages -N <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 随后我们可以cat打开查看里面两个文件的内容。.pub的是公钥</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们将公钥和私钥的内容分别添加到github上我们自己创建的仓库里，打开仓库的settings就可以设置</p>
+<p><img src="/img/githubset.png" alt="githubset"></p>
+<p>然后在里面找到deploy keys和codespaces，将公钥和私钥分别绑定，名称都为<code>ACTIONS_DEPLOY_KEY</code>。</p>
+<p><img src="/img/key.png" alt="keys"></p>
+<p>然后我们打开仓库的Actions页面，向里面添加一个新的模板workflow并且将内容修改为如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">github pages</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">hugo </span><span class="w"> </span><span class="c"># Set a branch to deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">    </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0.79.1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># extended: true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo --minify</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">deploy_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACTIONS_DEPLOY_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w"> </span><span class="c">##可以不用，如果有上面那个秘钥的话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cname</span><span class="p">:</span><span class="w"> </span><span class="l">craftor18.top </span><span class="w"> </span><span class="c">##这里可以更换为自己的域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_branch</span><span class="p">:</span><span class="w"> </span><span class="l">gh-pages</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的工作流主要是基于博客源码和网页生成目录在同一个仓库下的，如果想将博客源码存于另一个仓库的话，还需要加上别的参数，我这里不太懂，因为之前失败了，可以参考一些别人的教程。哈哈哈</p>
+<h3 id="3-总结">3 总结</h3>
+<p>总之就是在已经本地安装了hugo博客和已经有域名的情况下，如何将源码和网页同时置于一个仓库管理的流程辣，其实博客的源码还是放在一个私有的仓库会好一些，不过我反正也无所谓因此就放到了一起。下面是我参考别人大佬的一些教程链接。</p>
+<p><a href="https://zenlian.github.io/posts/tools/github-actions-hugo/">使用 Github Actions 自动部署 Hugo 博客 | ZenLian</a></p>
+<p><a href="https://www.leftpocket.cn/post/hugo/hugo_vercel/">从零开始搭建个人博客网站系列 三、hugo站点自动部署到vercel托管平台 - 码农在新加坡的个人博客 (leftpocket.cn)</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/hugo/">hugo</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_population_analysis_5/">
+            <span class="next-text nav-default">群体遗传进化学学习笔记（五）选择清除分析运行实操</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://craftor18.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客框架
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span>
+      <a href="https://www.cnblogs.com/zengy-bioinfostudy/">craftor18</a>
+  <i class="iconfont icon-heart"></i></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
