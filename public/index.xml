@@ -6,7 +6,16 @@
     <description>Recent content on craftor18的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 16 Feb 2023 12:54:34 +0800</lastBuildDate><atom:link href="https://craftor18.top/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Feb 2023 12:17:10 +0800</lastBuildDate><atom:link href="https://craftor18.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>群体遗传进化分析笔记（六） 种群历史动态分析</title>
+      <link>https://craftor18.top/post/record_of_population_analysis_6/</link>
+      <pubDate>Sun, 19 Feb 2023 12:17:10 +0800</pubDate>
+      
+      <guid>https://craftor18.top/post/record_of_population_analysis_6/</guid>
+      <description>种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。基本原理是：由</description>
+    </item>
+    
     <item>
       <title>关于如何在github上自动部署hugo博客的一些记录</title>
       <link>https://craftor18.top/post/hugo_auto_deploy/</link>

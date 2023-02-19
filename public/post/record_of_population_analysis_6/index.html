@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>群体遗传进化分析笔记（六） 种群历史动态分析 - craftor18的个人博客</title>
+  <style>
+    .heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #e74c3c;
+      border-radius: 50%;
+      animation: heart 1s ease-out;
+    }
+
+    @keyframes heart {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+  </style>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。基本原理是：由" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.top/post/record_of_population_analysis_6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.3999dfa24012d9116ab7bb7b8df643f955be5aa115d4562897647253af5b56c2.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://craftor18.top/css/custom.css">
+
+
+<meta property="og:title" content="群体遗传进化分析笔记（六） 种群历史动态分析" />
+<meta property="og:description" content="种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。基本原理是：由" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.top/post/record_of_population_analysis_6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-19T12:17:10+08:00" />
+<meta property="article:modified_time" content="2023-02-19T12:17:10+08:00" />
+<meta itemprop="name" content="群体遗传进化分析笔记（六） 种群历史动态分析">
+<meta itemprop="description" content="种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。基本原理是：由"><meta itemprop="datePublished" content="2023-02-19T12:17:10+08:00" />
+<meta itemprop="dateModified" content="2023-02-19T12:17:10+08:00" />
+<meta itemprop="wordCount" content="804">
+<meta itemprop="keywords" content="群体遗传,生物信息学," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="群体遗传进化分析笔记（六） 种群历史动态分析"/>
+<meta name="twitter:description" content="种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。基本原理是：由"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">群体遗传进化分析笔记（六） 种群历史动态分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-19 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 804 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#记录跑过的流程">记录跑过的流程</a></li>
+            <li><a href="#结果如下">结果如下：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>种群历史动态分析主要是为了理解种群的进化历史，所利用的数据是重测序数据经过与参考基因组比对过的bam文件进行后续的分析与计算。<strong>基本原理</strong>是：由于重组的存在，基因组被打断成许多小的片段，利用<strong>高深度重测序数据</strong>，我们可以找出这些小片段上的变异位点，进而可以推断这些小片段之间的最近共祖时间（the time since the most recent common ancestor，TMRCA）。有的片段之间相似度高，最近共祖时间比较短，有的片段之期差异度比较高，最近共祖时间就比较长。计算基因组各个片段的最近共祖时间，就可以得到最近共祖时间的分布。而最近共祖时间的分布情况包含群体大小随着时间的推移变化信息，根据最近共祖时间分布的比例，可以推算该群体在历史各个时期有效群体大小。我在这里还是跟着组学大讲堂的脚本练习，下面是我自己跑过的流程。</p>
+<h3 id="记录跑过的流程">记录跑过的流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">######################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#种群动态分析  PSMC</span>
+</span></span><span class="line"><span class="cl"><span class="c1">########################################################</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$workdir</span>  <span class="c1">#回到工作目录</span>
+</span></span><span class="line"><span class="cl">mkdir 06.PSMC
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 06.PSMC
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#生成psmc需要的染色体一致性序列</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## bcftools参数说明</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -Ou : 输出未压缩的bcf文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -I : skip indels</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -f reference fasta</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -c 使用原始版本的的calling算法(对应于新的-m)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -Ov ：输出未压缩vcf文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## -d -D ：depth的上下限</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">bcftools mpileup -Ou -I -f <span class="nv">$REF</span> <span class="nv">$datadir</span>/CG9203-2.sort.dedup.bam<span class="p">|</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> bcftools call -c -Ov<span class="p">|</span> vcfutils.pl vcf2fq -d <span class="m">10</span> -D 100<span class="p">|</span> gzip - &gt; CG9203-2.psmc.fq.gz
+</span></span><span class="line"><span class="cl">fq2psmcfa -q20 CG9203-2.psmc.fq.gz &gt; CG9203-2.psmc.fa
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##保留染色体上的结果，短片的上的数据去掉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#生成染色体ID列表</span>
+</span></span><span class="line"><span class="cl">cat <span class="nv">$FAI</span> <span class="p">|</span>grep <span class="s2">&#34;Chr&#34;</span><span class="p">|</span>cut -f1 &gt;chr.list
+</span></span><span class="line"><span class="cl"><span class="c1">#提取染色体数据</span>
+</span></span><span class="line"><span class="cl">get_fa_by_id.pl chr.list CG9203-2.psmc.fa CG9203-2.Chr.psmc.fa
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##psmc分析</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-N 迭代次数</span>
+</span></span><span class="line"><span class="cl">psmc -N25 -t15 -r5 -p <span class="s2">&#34;4+25*2+4+6&#34;</span> -o CG9203-2.psmc CG9203-2.Chr.psmc.fa
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##绘图输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -g为该物种繁殖一代的时间，比如人的默认为25年，该处值为-g 25.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -u 为该物种突变速率</span>
+</span></span><span class="line"><span class="cl">psmc_plot.pl -u 1e-8 -g <span class="m">1</span>  -p CG9203-2 CG9203-2.psmc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##bootstrapping</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##统计序列长度</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;/^&gt;/{if (l!=&#34;&#34;) print l; print; l=0; next}{l+=length($0)}END{print l}&#39;</span> CG9203-2.Chr.psmc.fa
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">splitfa CG9203-2.Chr.psmc.fa <span class="m">100000</span> &gt; CG9203-2.split.psmcfa
+</span></span><span class="line"><span class="cl">seq <span class="m">20</span> <span class="p">|</span> xargs -i <span class="nb">echo</span>  psmc -N25 -t15 -r5 -b -p <span class="s2">&#34;4+25*2+4+6&#34;</span> -o round-<span class="o">{}</span>.psmc CG9203-2.split.psmcfa &gt;boot.sh
+</span></span><span class="line"><span class="cl">parallel -j <span class="m">10</span> &lt;boot.sh  <span class="c1"># 5个一起并行运行 </span>
+</span></span><span class="line"><span class="cl">cat CG9203-2.psmc round-*.psmc &gt; CG9203-2.combined.psmc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#绘图输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -g为该物种繁殖一代的时间，比如人的默认为25年，该处值为-g 25.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -u 为该物种一代的突变速率  </span>
+</span></span><span class="line"><span class="cl">psmc_plot.pl -u 1e-8 -g <span class="m">1</span> -p CG9203-2.bs CG9203-2.combined.psmc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="结果如下">结果如下：</h3>
+<p><img src="/img/pmsc.png" alt="pmsc"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0/">群体遗传</a>
+          <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/hugo_auto_deploy/">
+            <span class="next-text nav-default">关于如何在github上自动部署hugo博客的一些记录</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://craftor18.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客框架
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span>
+      <a href="https://www.cnblogs.com/zengy-bioinfostudy/">craftor18</a>
+  <i class="iconfont icon-heart"></i></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
