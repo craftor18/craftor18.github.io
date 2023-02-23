@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>群体遗传学笔记（七） 基因流分析 - craftor18的个人博客</title>
+  <style>
+    .heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #e74c3c;
+      border-radius: 50%;
+      animation: heart 1s ease-out;
+    }
+
+    @keyframes heart {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+  </style>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="craftor18" /><meta name="description" content="在群体遗传学上，**基因流（也称基因迁移）**是指从一个物种的一个种群向另一个种群引入新的遗 传物质，从而改变群体“基因库”的组成。通过基因交" /><meta name="keywords" content="hugo, learn, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
+
+
+<link rel="canonical" href="https://craftor18.top/post/record_of_population_analysis_7/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.3999dfa24012d9116ab7bb7b8df643f955be5aa115d4562897647253af5b56c2.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://craftor18.top/css/custom.css">
+
+
+<meta property="og:title" content="群体遗传学笔记（七） 基因流分析" />
+<meta property="og:description" content="在群体遗传学上，**基因流（也称基因迁移）**是指从一个物种的一个种群向另一个种群引入新的遗 传物质，从而改变群体“基因库”的组成。通过基因交" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://craftor18.top/post/record_of_population_analysis_7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-23T13:47:23+08:00" />
+<meta property="article:modified_time" content="2023-02-23T13:47:23+08:00" />
+<meta itemprop="name" content="群体遗传学笔记（七） 基因流分析">
+<meta itemprop="description" content="在群体遗传学上，**基因流（也称基因迁移）**是指从一个物种的一个种群向另一个种群引入新的遗 传物质，从而改变群体“基因库”的组成。通过基因交"><meta itemprop="datePublished" content="2023-02-23T13:47:23+08:00" />
+<meta itemprop="dateModified" content="2023-02-23T13:47:23+08:00" />
+<meta itemprop="wordCount" content="2253">
+<meta itemprop="keywords" content="生物信息学,群体遗传," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="群体遗传学笔记（七） 基因流分析"/>
+<meta name="twitter:description" content="在群体遗传学上，**基因流（也称基因迁移）**是指从一个物种的一个种群向另一个种群引入新的遗 传物质，从而改变群体“基因库”的组成。通过基因交"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Craftor18</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Craftor18</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">群体遗传学笔记（七） 基因流分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/"> 学习 </a>
+            </div>
+          <span class="more-meta"> 约 2253 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在群体遗传学上，**基因流（也称基因迁移）**是指从一个物种的一个种群向另一个种群引入新的遗 传物质，从而改变群体“基因库”的组成。通过基因交流向群体中引入新的等位基因，是遗传变 异一个非常重要的来源，影响群体遗传多样性，产生新的性状组合。基因流会减少种群之间的差 异。</p>
+<p>TreeMix通过从多个种群中获得等位基因频率， 返回该种群的最大似然(ML)树，并推断可能发生的杂交事件。</p>
+<p>可以用三句话概括基本原理。 1. 使用基因频率数据可以计算出每对群体之间的协方差，这是实际的<strong>协方差 （Real value）</strong>； 2. 使用基因型频率数据可以构建最大似然树，利用两个种群在树上的关系， 可以计算出协方差的估计值（Estimated value）； 3. 通过实际值与估计值之间的差的大小，判断两个种群之间是否发生基因流， 即如果实际值<strong>小于</strong>估计值很多时，则说明我们构建出来的树夸大了种群之 间的差异，则说明种群之间有基因交流，因为基因流会减少种群之间的差 异。</p>
+<p>下面所有操作基于docker run &ndash;rm -v D:\treemix:/work -it omicsclass/pop-evol-gwas:latest</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">### 根据LD来过滤连锁的SNP</span>
+</span></span><span class="line"><span class="cl">plink --vcf filtered_snp.vcf.gz --indep-pairwise <span class="m">50</span> <span class="m">10</span> 0.2 --out tmp.ld --allow-extra-chr --set-missing-var-ids @:# --keep-allele-order
+</span></span><span class="line"><span class="cl">plink --vcf filtered_snp.vcf.gz --extract tmp.ld.prune.in --freq --missing --within pop.cluster.txt --out input --allow-extra-chr --set-missing-var-ids @:# --keep-allele-order
+</span></span><span class="line"><span class="cl"><span class="c1">#压缩输出文件</span>
+</span></span><span class="line"><span class="cl">gzip input.frq.strat
+</span></span><span class="line"><span class="cl"><span class="c1">#将输出文件转换为Treemix需求的格式</span>
+</span></span><span class="line"><span class="cl">/bin/python2 script/plink2treemix.py input.frq.strat.gz input_treemix.frq.gz
+</span></span><span class="line"><span class="cl"><span class="c1">#假设各群体间没有基因流</span>
+</span></span><span class="line"><span class="cl">treemix -i input_treemix.frq.gz -m <span class="m">0</span> -o treemix.0 -bootstrap -k <span class="m">500</span> -noss &gt; treemix_0_log
+</span></span><span class="line"><span class="cl">Rscript script/treemix.r -i treemix -o ./ -e <span class="m">0</span> -r pop.order.txt 
+</span></span><span class="line"><span class="cl"><span class="c1">#假设各群体间有一次基因流</span>
+</span></span><span class="line"><span class="cl">treemix -i input_treemix.frq.gz -m <span class="m">1</span> -o treemix.1 -bootstrap -k <span class="m">500</span> -noss &gt; treemix_1_log
+</span></span><span class="line"><span class="cl">Rscript script/treemix.r -i treemix -o ./ -e <span class="m">1</span> -r pop.order.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>IBD分析：</p>
+<p>定义 ：IBD（Identity By Descent），即同源相同（同源一致性，血缘一致性），指两个个体中 共有的等位基因来源于共同祖先（在两个及以上个体存在来源于同一祖先的、未发生重组的、完 全相同的DNA片段）。</p>
+<p>由于IBD片段的能够反映个体间的遗传关系，所以IBD有非常广泛的应用。 主要有以下几个方面： 1. 估计遗传力； 2. 确定精细群体结构； 3. 检测性状变异； 4. 估计亲缘关系系数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#目录结构</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## data      所需各种数据</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## ibd_demo  ibd示例结果（已跑完所有流程并生成全部结果）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## my_ibd    自己的ibd计算目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## script    所需各种脚本</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## software  所需beagle软件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#新建自己的ibd计算目录</span>
+</span></span><span class="line"><span class="cl">mkdir my_ibd
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> my_ibd
+</span></span><span class="line"><span class="cl"><span class="c1">##################################第一步 拆分染色体并分别计算IBD#################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所需文件：vcf文件，chrlist：染色体名称（1列，与vcf中对应），ibd_calculate.sh </span>
+</span></span><span class="line"><span class="cl">mkdir 01.chr_ibd
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 01.chr_ibd
+</span></span><span class="line"><span class="cl">cp /work/ibd_demo/01.chr_ibd/ibd_calculate.sh ./
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#vcf文件要过滤掉缺失位点，过滤标准至少0.8</span>
+</span></span><span class="line"><span class="cl">vcftools --gzvcf xxx.vcf.gz --max-missing 1.0 --recode --stdout <span class="p">|</span> gzip -c &gt; xxx.recode.vcf.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改并运行命令calculate.sh，拆分染色体并计算ibd</span>
+</span></span><span class="line"><span class="cl">nohup sh ibd_calculate.sh &gt; ibd_calculate.sh.o <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#############################第二步 提取两个供体群体以及每个受体对应的IBD结果#################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所需文件：sample_ibd.sh，ibd_pop.py，ibd_sample.py，ibd结果文件，tibd.bed文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        listR：受体样本vcf名称（1列），listA：供体群A样本vcf名称（1列），listB：供体群B样本vcf名称（1列）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../
+</span></span><span class="line"><span class="cl">mkdir 02.pop_ibd
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 02.pop_ibd
+</span></span><span class="line"><span class="cl"><span class="c1">#修改并运行命令 sample_ibd.sh  #分别提取两个供体群的ibd值和对应的bed文件  #提取每个受体样本对应的两个供体群的bed文件，输出到新目录03.sample_ibd/下</span>
+</span></span><span class="line"><span class="cl">cp /work/ibd_demo/02.pop_ibd/sample_ibd.sh ./
+</span></span><span class="line"><span class="cl">nohup sh sample_ibd.sh &gt; sample_ibd.o <span class="p">&amp;</span>                           
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">###########################第三步 思路一：计算群体间rIBD 目录02.pop_ibd################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所需文件（自行准备）genome.chr.ln，文件为两列，第一列是与ibd对应的染色体名称，第二列是染色体长度，与vcf中对应，见示例文件·</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#命令与脚本文件：pop_ribd.sh，ribd_pop.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#划窗口，生成bed文件</span>
+</span></span><span class="line"><span class="cl">bedtools makewindows -g /work/data/genome.chr.ln -w <span class="m">10000</span> &gt;10K.genome.bed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改并运行命令 pop_ribd.sh   #计算供体A群和B群分别对应的cIBD，计算两个供体群之间的rIBD</span>
+</span></span><span class="line"><span class="cl">cp /work/ibd_demo/02.pop_ibd/pop_ribd.sh ./
+</span></span><span class="line"><span class="cl">nohup sh pop_ribd.sh &gt; pop_ribd.sh.o <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl"><span class="c1">#画图</span>
+</span></span><span class="line"><span class="cl">Rscript /work/script/ribd_plot.R -i ribd.txt -chr chr01 -n ribd
+</span></span><span class="line"><span class="cl"><span class="c1">#必选参数：-i 输入文件 -chr 指定染色体</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#可选参数：-n 输出文件前缀，-color 指定颜色， -o 输出文件目录 -x x轴标题，-y y轴标题，</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        -H 生成PDF的高度（默认4），-W 生成PDF的宽度（默认6）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##################第三步 思路二：对每个受体样本计算IBD_proption 目录03.sample_ibd#################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所需文件：listR：受体样本vcf名称（1列），listA：供体群A样本vcf名称（1列），listB：供体群B样本vcf名称（1列）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         划窗口bed文件，ibd_proption.py，ibd_proption.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#进入上一步生成的目录，默认为03.sample_ibd/</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../03.sample_ibd/
+</span></span><span class="line"><span class="cl">cp ../02.pop_ibd/10K.genome.bed ./
+</span></span><span class="line"><span class="cl">cp /work/ibd_demo/03.sample_ibd/ibd_proption.sh ./
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#运行命令 cibd.sh,,批量产生cIBD结果文件和最终IBD比例文件</span>
+</span></span><span class="line"><span class="cl">nohup sh ibd_proption.sh &gt; ibd_proption.sh.o <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#画图在excel中进行即可</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##在此之前需要对popA和popB进行比例的统计，使用awk分sample_name统计，基于受体群体进行，统计popA和popB的比例。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/img/ibd.png" alt="ibd"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">craftor18</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2023-02-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+          <a href="/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0/">群体遗传</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/record_of_population_analysis_6/">
+            <span class="next-text nav-default">群体遗传进化分析笔记（六） 种群历史动态分析</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="craftor18/craftor18.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:1369429823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/craftor18" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://craftor18.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    基于 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 博客框架
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2023<span>
+      <a href="https://www.cnblogs.com/zengy-bioinfostudy/">craftor18</a>
+  <i class="iconfont icon-heart"></i></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
