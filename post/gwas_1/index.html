@@ -1,0 +1,98 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>GWAS_1 - craftor18的个人博客</title><style>.heart{position:absolute;width:10px;height:10px;background-color:#e74c3c;border-radius:50%;animation:heart 1s ease-out}@keyframes heart{0%{transform:scale(1);opacity:1}100%{transform:scale(1.3);opacity:0}}</style><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="craftor18"><meta name=description content="基因型数据：WGS数据首先经过bwa比对、samtools排序、GATK Call SNP 和vcftools等程序过滤，最后只要提取出SNP位点进行后续的"><meta name=keywords content="hugo,learn,blog"><meta name=generator content="Hugo 0.79.1 with theme even"><link rel=canonical href=https://craftor18.top/post/gwas_1/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><link rel=stylesheet href=https://craftor18.top/css/custom.css><meta property="og:title" content="GWAS_1"><meta property="og:description" content="基因型数据：WGS数据首先经过bwa比对、samtools排序、GATK Call SNP 和vcftools等程序过滤，最后只要提取出SNP位点进行后续的"><meta property="og:type" content="article"><meta property="og:url" content="https://craftor18.top/post/gwas_1/"><meta property="article:published_time" content="2023-11-26T21:21:26+08:00"><meta property="article:modified_time" content="2023-11-26T21:21:26+08:00"><meta itemprop=name content="GWAS_1"><meta itemprop=description content="基因型数据：WGS数据首先经过bwa比对、samtools排序、GATK Call SNP 和vcftools等程序过滤，最后只要提取出SNP位点进行后续的"><meta itemprop=datePublished content="2023-11-26T21:21:26+08:00"><meta itemprop=dateModified content="2023-11-26T21:21:26+08:00"><meta itemprop=wordCount content="648"><meta itemprop=keywords content="群体遗传学,GWAS分析,"><meta name=twitter:card content="summary"><meta name=twitter:title content="GWAS_1"><meta name=twitter:description content="基因型数据：WGS数据首先经过bwa比对、samtools排序、GATK Call SNP 和vcftools等程序过滤，最后只要提取出SNP位点进行后续的"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1024549225701007" crossorigin=anonymous></script></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>Craftor18</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>主页</li></a><a href=/post/><li class=mobile-menu-item>归档</li></a><a href=/tags/><li class=mobile-menu-item>标签</li></a><a href=/categories/><li class=mobile-menu-item>分类</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>Craftor18</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>主页</a></li><li class=menu-item><a class=menu-item-link href=/post/>归档</a></li><li class=menu-item><a class=menu-item-link href=/tags/>标签</a></li><li class=menu-item><a class=menu-item-link href=/categories/>分类</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>GWAS_1</h1><div class=post-meta><span class=post-time>2023-11-26</span><div class=post-category><a href=/categories/%E5%AD%A6%E4%B9%A0/>学习</a></div><span class=more-meta>约 648 字</span>
+<span class=more-meta>预计阅读 2 分钟</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents></nav></div></div><div class=post-content><p>基因型数据：WGS数据首先经过bwa比对、samtools排序、GATK Call SNP 和vcftools等程序过滤，最后只要提取出SNP位点进行后续的GWAS分析。芯片数据我不太熟悉，但是应该是类似数据，但是可能中间多一步基因型填充用于填补缺失的基因型。由于做的是非模式生物的，所以vcf注释采用的是snpEFF进行注释。首先build构建好注释用的索引，然后java一下运行一下注释，这一步主要是为了将SNP位点与基因对应，每个有注释的SNP位点都应该在某个基因的内含子区域或者5-端上游或者3-端下游等区域。最后使用一个python脚本（网上大佬的）将ID替换成染色体_position，得到最终可以用于做GWAS分析的高质量SNP位点数据集</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-python data-lang=python><span class=c1>#author_zukunft</span>
+<span class=c1>#data_202210</span>
+
+<span class=kn>import</span> <span class=nn>vcf</span>
+<span class=kn>import</span> <span class=nn>argparse</span>
+
+<span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>(</span><span class=n>description</span><span class=o>=</span><span class=s1>&#39;add ID to VCF_file: &#34;.&#34;&gt;&gt;&#34;chr*-POS&#34;&#39;</span><span class=p>)</span>
+<span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;--input&#39;</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=nb>str</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;?&#39;</span><span class=p>,</span>
+                    <span class=n>help</span><span class=o>=</span><span class=s1>&#39;input file&#39;</span><span class=p>)</span>
+
+<span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;--output&#39;</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=nb>str</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;?&#39;</span><span class=p>,</span>
+                    <span class=n>help</span><span class=o>=</span><span class=s1>&#39;output file&#39;</span><span class=p>)</span>
+
+<span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
+
+<span class=n>input_file</span> <span class=o>=</span> <span class=n>args</span><span class=o>.</span><span class=n>input</span>
+<span class=n>output_file</span> <span class=o>=</span> <span class=n>args</span><span class=o>.</span><span class=n>output</span>
+
+
+<span class=n>vcf_reader</span> <span class=o>=</span> <span class=n>vcf</span><span class=o>.</span><span class=n>Reader</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>input_file</span><span class=p>)</span>
+<span class=n>vcf_writer</span> <span class=o>=</span> <span class=n>vcf</span><span class=o>.</span><span class=n>Writer</span><span class=p>(</span><span class=nb>open</span><span class=p>(</span><span class=s2>&#34;tsp.2-8.rb17.dp5_indv2_maf5.impute.clear_site.snp.nochr.ID.vcf&#34;</span><span class=p>,</span> <span class=s1>&#39;w&#39;</span><span class=p>),</span> <span class=n>vcf_reader</span><span class=p>)</span>
+
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+    <span class=n>line</span><span class=o>=</span><span class=mi>0</span>
+    <span class=k>for</span> <span class=n>record</span> <span class=ow>in</span> <span class=n>vcf_reader</span><span class=p>:</span>
+        <span class=c1># print(record.ID)</span>
+        <span class=n>record</span><span class=o>.</span><span class=n>ID</span> <span class=o>=</span> <span class=nb>str</span><span class=p>(</span><span class=n>record</span><span class=o>.</span><span class=n>CHROM</span><span class=p>)</span> <span class=o>+</span> <span class=s2>&#34;_&#34;</span><span class=o>+</span> <span class=nb>str</span><span class=p>(</span><span class=n>record</span><span class=o>.</span><span class=n>POS</span><span class=p>)</span> <span class=c1>#自由修改</span>
+        <span class=c1># print(record.ID)</span>
+        <span class=n>line</span><span class=o>+=</span><span class=mi>1</span>
+        <span class=c1># print(&#34;正在执行第&#34; + line + &#34;SNP&#34;)</span>
+        <span class=n>vcf_writer</span><span class=o>.</span><span class=n>write_record</span><span class=p>(</span><span class=n>record</span><span class=p>)</span>
+
+<span class=n>vcf_writer</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+<span class=k>print</span><span class=p>(</span><span class=s2>&#34;done,The numbers of SNPs:&#34;</span><span class=p>)</span>
+<span class=k>print</span><span class=p>(</span><span class=n>line</span><span class=p>)</span>
+</code></pre></td></tr></table></div></div><p>usage:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>tools_py</span><span class=o>=</span>/path/vcf_add_ID.py <span class=c1>#vcf_add_ID.py见下面</span>
+
+<span class=nv>input_vcf</span><span class=o>=</span>/path/**.vcf.gz  <span class=c1>#**.vcf也可</span>
+<span class=nv>output_vcf</span><span class=o>=</span>/path/**.ID.vcf.gz
+
+<span class=nb>time</span> python3 <span class=nv>$tools_py</span> --input <span class=nv>$input_vcf</span> --output <span class=nv>$output_vcf</span>
+</code></pre></td></tr></table></div></div><p>表型数据：</p><p>其实就是首先将数据整理好，FID、IID、trait1&mldr;，这些。然后用r语言做一下统计，看看是否符合类正态分布这些啥的，要做标准化的话就做一下，不做也行。。。除非表型数据特别奇怪，否则应该都是能用的吧。。。</p><p><img src=/C:/Users/13694/AppData/Roaming/Typora/typora-user-images/image-20231126213906037.png alt=image-20231126213906037></p><p>差不多像上面这样的图弄一下看看就行。</p><p>GWAS：经典GEMMA，启动！！！！！！</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>craftor18</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2023-11-26</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E7%BE%A4%E4%BD%93%E9%81%97%E4%BC%A0%E5%AD%A6/>群体遗传学</a>
+<a href=/tags/gwas%E5%88%86%E6%9E%90/>GWAS分析</a></div><nav class=post-nav><a class=next href=/post/record_of_population_analysis_7/><span class="next-text nav-default">群体遗传学笔记（七） 基因流分析</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><script src=https://utteranc.es/client.js repo=craftor18/craftor18.github.io issue-term=pathname theme=github-light crossorigin=anonymous async></script><noscript>Please enable JavaScript to view the <a href=https://github.com/utterance>comments powered by utterances.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:1369429823@qq.com class="iconfont icon-email" title=email></a><a href=https://github.com/craftor18 class="iconfont icon-github" title=github></a><a href="https://space.bilibili.com/25805086?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title=bilibili></a><a href=https://craftor18.top/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>基于 <a class=hexo-link href=https://gohugo.io>Hugo</a> 博客框架</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次</span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人</span></div><span class=copyright-year>&copy;
+2023<span>
+<a href=https://www.cnblogs.com/zengy-bioinfostudy/>craftor18</a>
+<i class="iconfont icon-heart"></i></span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script></body></html>
